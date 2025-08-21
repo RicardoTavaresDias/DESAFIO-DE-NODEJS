@@ -1,6 +1,13 @@
 import fastify from "fastify"
-import crypto from "node:crypto"
+import { fastifySwagger } from "@fastify/swagger"
+//import { fastifySwaggerUi } from "@fastify/swagger-ui"
+import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchemaTransform } from "fastify-type-provider-zod"
+import { createCourseRouter } from "./src/routers/create-course.ts"
+import { getCourseByIdRouter } from "./src/routers/get-course-by-id.ts"
+import { getCoursesRouter } from "./src/routers/get-courses.ts"
+import scalarAPIReference from "@scalar/fastify-api-reference"
 
+// Config fastify
 const server = fastify({
   logger: {
     transport: {
@@ -11,53 +18,40 @@ const server = fastify({
       }
     }
   }
+}).withTypeProvider<ZodTypeProvider>()
+
+// Config Swagger
+server.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: 'Desafio Node.js',
+      version: "1.0.0"
+    }
+  },
+  transform: jsonSchemaTransform
 })
 
-const courses = [
-  { id: '1', title: 'Curso de Node.js' },
-  { id: '2', title: 'Curso de React' },
-  { id: '3', title: 'Curso de React Native' }
-]
-
-server.get('/courses', (request, replay) => {
-  return replay.send({ courses })
+server.register(scalarAPIReference, {
+  routePrefix: '/docs'
 })
 
-server.get('/courses/:id', (request, replay) => {
-  type Params = {
-    id: string
-  }
+/*
+  // Caminho da documentação http://localhost:3333/docs
+  server.register(fastifySwaggerUi, {
+    routePrefix: '/docs'
+  })
+*/
 
-  const params = request.params as Params
-  const courseId = params.id
+// Lib validação do Fastify
+server.setSerializerCompiler(serializerCompiler)
+server.setValidatorCompiler(validatorCompiler)
 
-  const course = courses.find(course => course.id === courseId)
-  if (course) {
-    return { course }
-  }
+// Routers
+server.register(createCourseRouter)
+server.register(getCourseByIdRouter)
+server.register(getCoursesRouter)
 
-  return replay.status(404).send()
-})
-
-server.post('/courses', (request, replay) => {
-   type Body = {
-    title: string
-  }
-
-  const coursesId = crypto.randomUUID()
-  const body = request.body as Body
-  const courseTitle = body.title
-
-
-  if (!courseTitle) {
-    return replay.status(400).send({ message: 'Título obrigarório.' })
-  }
-  
-  courses.push({ id: coursesId, title: courseTitle }) 
-
-  return replay.status(201).send({ id: coursesId })
-})
-
+// Servidor
 server.listen({ port: 3333 }).then(() => {
   console.log('HTTP server running!')
 })

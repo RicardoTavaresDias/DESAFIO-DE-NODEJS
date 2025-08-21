@@ -1,0 +1,25 @@
+## Instalações ##
+
+npm i drizzle-orm pg
+npm i drizzle-kit -D
+docker compose up -d
+
+# Tipagem do zod no fastify
+  npm i zod fastify-type-provider-zod
+
+# swagger no fastify
+  npm i @fastify/swagger
+
+# layaut padão do swagger
+  npm i @fastify/swagger-ui 
+
+# layaut do swagger
+  npm install @scalar/fastify-api-reference
+
+
+## Execuções ##
+
+npx drizzle-kit studio
+npx drizzle-kit migrate
+npx drizzle-kit generate
+
