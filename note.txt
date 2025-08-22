@@ -16,6 +16,23 @@ docker compose up -d
 # layaut do swagger
   npm install @scalar/fastify-api-reference
 
+# Para Seed banco de dados
+  npm i @faker-js/faker -D
+
+# Testes unitario
+  npm i vitest -D
+  npm i supertest -D
+  npm i @types/supertest -D
+
+# Para testes conseguir ver as variaveis de ambiente
+  npm i dotenv-cli -D
+
+# Matar o docker
+  docker compose down
+
+# Gera o grafico no teste no terminal, fica mais facil leitura.
+  npm i -D @vitest/coverage-v8
+
 
 ## Execuções ##
 

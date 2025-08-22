@@ -19,10 +19,6 @@ export const createCourseRouter: FastifyPluginAsyncZod = async (server) => {
     }
   }, async (request, replay) => {
     const courseTitle = request.body.title
-
-    if (!courseTitle) {
-      return replay.status(400).send({ message: 'Título obrigarório.' })
-    }
     
     const result = await db.insert(courses).values({
       title: courseTitle
@@ -30,5 +26,4 @@ export const createCourseRouter: FastifyPluginAsyncZod = async (server) => {
 
     return replay.status(201).send({ courseId: result[0].id })
   })
-
 }

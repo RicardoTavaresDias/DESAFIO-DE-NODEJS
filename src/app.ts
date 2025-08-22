@@ -2,22 +2,22 @@ import fastify from "fastify"
 import { fastifySwagger } from "@fastify/swagger"
 //import { fastifySwaggerUi } from "@fastify/swagger-ui"
 import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchemaTransform } from "fastify-type-provider-zod"
-import { createCourseRouter } from "./src/routers/create-course.ts"
-import { getCourseByIdRouter } from "./src/routers/get-course-by-id.ts"
-import { getCoursesRouter } from "./src/routers/get-courses.ts"
+import { createCourseRouter } from "./routers/create-course.ts"
+import { getCourseByIdRouter } from "./routers/get-course-by-id.ts"
+import { getCoursesRouter } from "./routers/get-courses.ts"
 import scalarAPIReference from "@scalar/fastify-api-reference"
 
 // Config fastify
 const server = fastify({
-  logger: {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        translateTime: "HH:MM:ss Z",
-        ignore: "pid,hostname"
-      }
-    }
-  }
+  // logger: {
+  //   transport: {
+  //     target: 'pino-pretty',
+  //     options: {
+  //       translateTime: "HH:MM:ss Z",
+  //       ignore: "pid,hostname"
+  //     }
+  //   }
+  // }
 }).withTypeProvider<ZodTypeProvider>()
 
 // Config Swagger
@@ -51,7 +51,4 @@ server.register(createCourseRouter)
 server.register(getCourseByIdRouter)
 server.register(getCoursesRouter)
 
-// Servidor
-server.listen({ port: 3333 }).then(() => {
-  console.log('HTTP server running!')
-})
+export { server }
