@@ -27,16 +27,26 @@ docker compose up -d
 # Para testes conseguir ver as variaveis de ambiente
   npm i dotenv-cli -D
 
-# Matar o docker
+# Limpar do dados do banco de dados
   docker compose down
 
 # Gera o grafico no teste no terminal, fica mais facil leitura.
   npm i -D @vitest/coverage-v8
 
+# hash password
+  npm i argon2
+
+# Token
+  npm i jsonwebtoken
+  npm i @types/jsonwebtoken -D
 
 ## Execuções ##
 
 npx drizzle-kit studio
 npx drizzle-kit migrate
 npx drizzle-kit generate
+
+
+# Cria um arquivo de migrate vazio para escrever SQL customizado
+  npx drizzle-kit generate --custom
 

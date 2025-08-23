@@ -11,4 +11,15 @@ GET http://localhost:3333/courses
 
 ###
 
-GET http://localhost:3333/courses/df9a1f67-ef8d-4333-a8b8-b75eed572a01
+GET http://localhost:3333/courses/b0739931-4098-460f-8950-ed8585bfc1a3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NTZiZWI0My1lNGEzLTQ3N2MtOWVkOS1hYTZmMTlkZTM3ZmMiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1NTk4MjUyOH0.LDNGR-e5TAsZ9hudwEzxJ5i8u9F2ub-KFYDO5AK-BOQ
+
+###
+
+POST http://localhost:3333/sessions
+Content-Type: application/json
+
+{
+  "email": "Antonio88@live.com",
+  "password": "123456"
+}
