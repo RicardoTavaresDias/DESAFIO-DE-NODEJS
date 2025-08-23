@@ -40,6 +40,9 @@ docker compose up -d
   npm i jsonwebtoken
   npm i @types/jsonwebtoken -D
 
+ # Em produção
+  docker build . 
+
 ## Execuções ##
 
 npx drizzle-kit studio
